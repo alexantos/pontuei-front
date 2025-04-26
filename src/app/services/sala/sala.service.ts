@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
-import { Sala } from '../../models/sala';
+import { Sala } from '../../models/interface.models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { Sala } from '../../models/sala';
 export class SalaService extends BaseService<Sala> {
 
   constructor(private http: HttpClient) {
-    super('sala/', http);
+    super('salas/', http);
   }
 
 }

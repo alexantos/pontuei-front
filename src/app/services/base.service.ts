@@ -17,7 +17,7 @@ export class BaseService<Parametro> { //Parâmetro (por exemplo tipo Sala da mod
         return this.httpClient.get<Parametro>(environment.url_back + '/' + this.url + id + '/')
     }
 
-    salvar(parametro: Parametro): Observable<Parametro> {
+    criar(parametro: Parametro): Observable<Parametro> {
         return this.httpClient.post<Parametro>(environment.url_back + '/' + this.url, parametro)
     }
 

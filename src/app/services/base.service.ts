@@ -9,8 +9,8 @@ export class BaseService<Parametro> { //Parâmetro (por exemplo tipo Sala da mod
     constructor(@Inject('url') private url: string, private httpClient: HttpClient) { }
 
 
-    listar(params?: HttpParams | any): Observable<Parametro> {
-        return this.httpClient.get<Parametro>(environment.url_back + '/' + this.url, { params: params });
+    listar(params?: HttpParams | any): Observable<Parametro[]> {
+        return this.httpClient.get<Parametro[]>(environment.url_back + '/' + this.url, { params: params });
     }
 
     pegarId(id: any): Observable<Parametro> {
@@ -25,8 +25,8 @@ export class BaseService<Parametro> { //Parâmetro (por exemplo tipo Sala da mod
         return this.httpClient.delete<Parametro>(environment.url_back + '/' + this.url + id)
     }
 
-    editar(parametro: any, id?: string): Observable<Parametro> {
-        return this.httpClient.patch<Parametro>(environment.url_back + '/' + this.url + id + '/', parametro)
+    editar(parametro: any): Observable<Parametro> {
+        return this.httpClient.patch<Parametro>(environment.url_back + '/' + this.url + parametro.id + '/', parametro)
     }
 
     pegarPelaUrl(url: string): Observable<Parametro> {

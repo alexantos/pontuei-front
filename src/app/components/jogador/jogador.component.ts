@@ -7,6 +7,8 @@ import { JogadorService } from '../../services/jogador/jogador.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgIf } from '@angular/common';
+import { HistoricoPontuacaoService } from '../../services/historico-pontuacao/historico-pontuacao.service';
+import { HistoricoPontuacao, Jogador } from '../../models/interface.models';
 
 
 
@@ -14,6 +16,7 @@ import { NgIf } from '@angular/common';
 @Component({
     selector: 'app-jogador',
     imports: [
+        // NgIf,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
@@ -21,7 +24,6 @@ import { NgIf } from '@angular/common';
         ReactiveFormsModule,
         MatSlideToggleModule,
         FormsModule,
-        NgIf,
     ],
     templateUrl: './jogador.component.html',
     styleUrl: './jogador.component.css',
@@ -32,6 +34,9 @@ export class JogadorComponent implements OnInit {
     readonly dialogRef = inject(MatDialogRef<JogadorComponent>);
     readonly data = inject(MAT_DIALOG_DATA);
     jogadorService = inject(JogadorService);
+    historicoPontuacaoService = inject(HistoricoPontuacaoService);
+
+    pontuacao_historico: number = 0;
 
     somar: FormControl = new FormControl(true);
 
@@ -51,10 +56,15 @@ export class JogadorComponent implements OnInit {
     }
 
     salvar() {
+        this.pontuacao_historico = this.jogador.controls['pontuacao'].value
         if (!this.data.jogador) {
             this.jogadorService.criar(this.jogador.value).subscribe({
                 next: (resultado) => {
-                    this.fechar();
+                    if (resultado.pontuacao != 0) {
+                        this.adicionarHistorico(resultado);
+                    } else {
+                        this.fechar();
+                    }
                 }
             });
         } else {
@@ -63,15 +73,27 @@ export class JogadorComponent implements OnInit {
             }
             this.jogadorService.editar(this.jogador.value).subscribe({
                 next: (resultado) => {
-                    this.fechar();
+                    this.adicionarHistorico(resultado);
                 }
             });
         }
     }
 
+    adicionarHistorico(jogador: Jogador) {
+        let historico_pontuacao = {
+            jogador: jogador.id,
+            pontuacao: this.pontuacao_historico
+        }
+        this.historicoPontuacaoService.criar(historico_pontuacao as any).subscribe({
+            next: (resultado: HistoricoPontuacao) => {
+                this.fechar();
+            }
+        })
+    }
+
     alteraSomar() {
         if (this.somar.value) {
-            this.jogador.controls['pontuacao'].setValue(0);
+            this.jogador.controls['pontuacao'].setValue(null);
         } else {
             this.jogador.controls['pontuacao'].setValue(this.data.jogador.pontuacao);
         }

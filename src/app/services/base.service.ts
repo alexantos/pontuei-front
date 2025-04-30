@@ -22,7 +22,7 @@ export class BaseService<Parametro> { //Parâmetro (por exemplo tipo Sala da mod
     }
 
     excluir(id?: string): Observable<Parametro> {
-        return this.httpClient.delete<Parametro>(environment.url_back + '/' + this.url + id)
+        return this.httpClient.delete<Parametro>(environment.url_back + '/' + this.url + id + '/')
     }
 
     editar(parametro: any): Observable<Parametro> {

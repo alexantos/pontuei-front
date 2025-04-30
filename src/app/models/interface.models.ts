@@ -9,7 +9,16 @@ export interface Jogador {
     id?: string;
     nome: string;
     pontuacao: number;
-    cor: string; //Hexadecimal
+    cor: string; //Tailwind
     sala: Sala;
 }
+
+export interface HistoricoPontuacao {
+    id?: string;
+    pontuacao: number;
+    jogador: Jogador;
+    'index'?: number;
+}
+
+
 

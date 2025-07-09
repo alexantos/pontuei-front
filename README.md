@@ -4,7 +4,7 @@ Esse projeto roda em conjunto com seu back ([pontuei-back](https://github.com/al
 
 Foi desenvolvido com o propósito de salvar a pontuação em um jogo de baralho que jogo com frequencia chamado pontinho.
 
-Para jogar você pode entrar em uma sala existente ou criar uma nova, após essa etapa cada jogador registra seu nome. Após cada rodada o jogador anota sua pontuação e ela é somada a pontuação anterior. No final da pág tem uma tabela responsável pelo histórico de pontos de cada jogador. 
+Para jogar você pode entrar em uma sala existente ou criar uma nova, após essa etapa cada jogador registra seu nome. Após cada rodada o jogador anota sua pontuação e ela é somada à pontuação anterior. No final da página tem uma tabela responsável pelo histórico de pontos de cada jogador. 
 
 Tecnologias:
 
